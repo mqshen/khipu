@@ -130,9 +130,9 @@ object Dependencies {
 
   val log = Seq(
     "org.slf4j" % "slf4j-api" % SLF4J_VERSION,
-    "org.slf4j" % "jcl-over-slf4j" % SLF4J_VERSION,
-    "org.slf4j" % "log4j-over-slf4j" % SLF4J_VERSION,
-    "ch.qos.logback" % "logback-classic" % "1.2.1"
+    "org.slf4j" % "jcl-over-slf4j" % SLF4J_VERSION
+    //"org.slf4j" % "log4j-over-slf4j" % SLF4J_VERSION,
+    //"ch.qos.logback" % "logback-classic" % "1.2.1"
   )
 
   val test = Seq(

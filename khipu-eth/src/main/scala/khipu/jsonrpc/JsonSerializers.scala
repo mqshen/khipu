@@ -2,8 +2,10 @@ package khipu.jsonrpc
 
 import akka.util.ByteString
 import java.math.BigInteger
+
+import khipu.Hash
 import khipu.domain.Address
-import org.json4s.JsonAST.{ JNull, JString }
+import org.json4s.JsonAST.{JNull, JString}
 import org.json4s.CustomSerializer
 
 object JsonSerializers {
@@ -37,5 +39,11 @@ object JsonSerializers {
       { PartialFunction.empty },
       { case addr: Address => JString(s"0x${khipu.toHexString(addr.bytes)}") }
     ))
+
+  object HashJsonSerializer extends CustomSerializer[Hash](_ =>
+     (
+       { PartialFunction.empty },
+       { case hash: Hash => JString(hash.hexString) }
+     ))
 
 }

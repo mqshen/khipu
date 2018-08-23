@@ -2,20 +2,23 @@ package khipu.jsonrpc
 
 import akka.util.ByteString
 import java.math.BigInteger
+
 import khipu.Hash
+import khipu.blockchain.data.GenesisDataLoader.JsonSerializers.HashJsonSerializer
 import khipu.crypto.ECDSASignature
 import khipu.domain.Address
 import khipu.jsonrpc.EthService.BlockParam
-import khipu.jsonrpc.JsonRpcController.{ JsonDecoder, JsonEncoder }
+import khipu.jsonrpc.JsonRpcController.{JsonDecoder, JsonEncoder}
 import khipu.jsonrpc.JsonRpcErrors.InvalidParams
-import khipu.jsonrpc.JsonSerializers.{ AddressJsonSerializer, OptionNoneToJNullSerializer, QuantitiesSerializer, UnformattedDataJsonSerializer }
+import khipu.jsonrpc.JsonSerializers._
 import khipu.jsonrpc.NetService._
 import khipu.jsonrpc.PersonalService._
-import khipu.jsonrpc.Web3Service.{ ClientVersionRequest, ClientVersionResponse, Sha3Request, Sha3Response }
+import khipu.jsonrpc.Web3Service.{ClientVersionRequest, ClientVersionResponse, Sha3Request, Sha3Response}
 import khipu.util.BigIntUtil.BigIntAsUnsigned
 import org.json4s.JsonAST._
 import org.json4s.JsonDSL._
-import org.json4s.{ DefaultFormats, Formats }
+import org.json4s.{DefaultFormats, Formats}
+
 import scala.util.Try
 
 trait JsonMethodsImplicits {
@@ -23,7 +26,7 @@ trait JsonMethodsImplicits {
   trait Codec[Req, Res] extends JsonDecoder[Req] with JsonEncoder[Res]
 
   implicit val formats: Formats = DefaultFormats.preservingEmptyValues + OptionNoneToJNullSerializer +
-    QuantitiesSerializer + UnformattedDataJsonSerializer + AddressJsonSerializer
+    QuantitiesSerializer + UnformattedDataJsonSerializer + AddressJsonSerializer + HashJsonSerializer
 
   protected def encodeAsHex(input: Hash): JString =
     JString(s"0x${input.hexString}")
